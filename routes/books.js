@@ -19,7 +19,7 @@ const books = [
  */
 
 router.get("/", (req, res) => {
-  res.json(books);
+    res.status(200).json(books);
 });
 
 /**
