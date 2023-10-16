@@ -40,7 +40,7 @@ router.get("/", (req, res) => {
  * @access public
  */
 router.get("/:id",(req,res)=>{
-    const author = authors.find(a,a.id === parseInt(req.params.id));
+    const author = authors.find((a)=> a.id === parseInt(req.params.id));
     if(author){
         res.status(200).json(author);
     }else{
