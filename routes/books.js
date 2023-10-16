@@ -11,7 +11,14 @@ const books = [
 // router.get("/", (req, res) => {
 //   res.send("Hi from nodemon");
 // });
-// get all books
+
+/**
+ * @des Get All Books
+ * @route /books
+ * @method Get
+ * @access public
+ */
+
 router.get("/", (req, res) => {
   res.json(books);
 });
