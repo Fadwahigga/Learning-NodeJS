@@ -1,5 +1,6 @@
 const express = require("express");
-const bookPath = require("./routes/books");
+const booksPath = require("./routes/books");
+const authorsPath = require("./routes/authors");
 
 // inti app
 const app = express();
@@ -8,7 +9,8 @@ const app = express();
 app.use(express.json());
 
 // Routes
-app.use("/books", bookPath);
+app.use("/books", booksPath);
+app.use("/authors", authorsPath);
 
 
 // Running the server
