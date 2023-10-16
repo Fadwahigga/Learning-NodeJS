@@ -13,9 +13,22 @@ const books = [
 app.get("/",(req,res)=>{
   res.send("Hi from nodemon");
 });
+// get all books
 app.get("/books",(req,res)=>{
   res.json(books);
 });
+
+//get book by id
+app.get("/books/:id",(req,res)=>{
+  const book = books.find(b => b.id === parseInt(req.params.id));
+  if(book){
+    res.status(200).json(book);
+  } else{
+    res.status(404).json({message:"Book not found"});
+  }
+});
+
+/////////////////////
 // const server = http.createServer((request, response) => {
 //   if (request.url === "/") {
 //     response.write("<h1>Hello<h1>");
