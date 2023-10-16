@@ -4,17 +4,18 @@
 // const http = require("http");
 const express = require("express");
 const app = express();
-app.get("/",(req,res)=>{
-  res.send("Hi from nodemon");
-});
+
 const books = [
   { id: 1, name: "book1", tittle: "neww", author: "fadwa" },
   { id: 2, name: "book2", tittle: "newwww", author: "fadwwwa" },
   { id: 3, name: "book3", tittle: "newew", author: "fadwaaa" },
 ];
-// app.get("/",(req,res)=>{
-//   res.json(books);
-// });
+app.get("/",(req,res)=>{
+  res.send("Hi from nodemon");
+});
+app.get("/books",(req,res)=>{
+  res.json(books);
+});
 // const server = http.createServer((request, response) => {
 //   if (request.url === "/") {
 //     response.write("<h1>Hello<h1>");
@@ -25,11 +26,11 @@ const books = [
 //     response.end();
 //   }
 // });
-const PORT = 5000;
-app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
 // // custom module
 // const {log} = require("./logger");
 // log();
 // // Third pary module <packages>
 
-
+// Running the server 
+const PORT = 5000;
+app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
