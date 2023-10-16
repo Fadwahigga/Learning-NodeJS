@@ -47,4 +47,39 @@ router.get("/:id",(req,res)=>{
         res.status(404).json({message:"Author not found"});
     }
 })
+/**
+ * @des Add New Author
+ * @route /author
+ * @method Post
+ * @access public
+ */
+router.post("/", (req, res) => {
+    const { error } = ValidateAddBook(req.body);
+    if (error) {
+      return res.status(400).json({ message: error.details[0].message });
+    }
+    const author = {
+        id: authors.length +1,
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        nationality: req.body.nationality,
+        image: req.body.image,
+    };
+    console.log(author);
+    authors.push(author);
+    res.status(201).json(author); //201 created successfully
+  });
+
+
+
+// Validate Add Author
+  function  ValidateAddBook(obj) {
+    const schema = Joi.object({
+      first_name: Joi.string().trim().min(3).max(100).required(),
+      last_name: Joi.string().trim().min(3).max(100).required(),
+      nationality: Joi.string().trim().min(3).max(100).required(),
+      image: Joi.string().required(),
+    });
+    return schema.validate(obj);
+  }
 module.exports = router;
