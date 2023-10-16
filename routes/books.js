@@ -39,7 +39,7 @@ router.get("/:id", (req, res) => {
 
 // Add new book
 router.post("/", (req, res) => {
-    const { error } =validateCreateBook(req.body);
+  const { error } = validateCreateBook(req.body);
   if (error) {
     return res.status(400).json({ message: error.details[0].message });
   }
