@@ -1,0 +1,8 @@
+{
+  "name": "nodejs-demo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Fadwahigga/Learning-NodeJS.git",
+  "author": "Fadwa Ali <fadwa.ali@elevoro.com>",
+  "license": "MIT"
+}
