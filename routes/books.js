@@ -79,7 +79,7 @@ router.put("/:id", (req, res) => {
 /**
  * @des Delete a Book
  * @route /books/:id
- * @method PUT
+ * @method Delete
  * @access public
  */
 router.delete("/:id", (req, res) => {
