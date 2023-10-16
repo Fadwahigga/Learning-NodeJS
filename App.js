@@ -12,6 +12,8 @@ const server = http.createServer((request, response) => {
     response.end();
   }
   if (request.url === "/api/books") {
+    response.write(JSON.stringify(books));
+    response.end();
   }
 });
 const PORT = 5000;
