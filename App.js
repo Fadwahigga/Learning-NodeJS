@@ -28,7 +28,13 @@ app.get("/books/:id",(req,res)=>{
   }
 });
 
-/////////////////////
+// Running the server 
+const PORT = 5000;
+app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+
+
+
+//////////////////////////////////////////////////////////////////////////////
 // const server = http.createServer((request, response) => {
 //   if (request.url === "/") {
 //     response.write("<h1>Hello<h1>");
@@ -43,7 +49,4 @@ app.get("/books/:id",(req,res)=>{
 // const {log} = require("./logger");
 // log();
 // // Third pary module <packages>
-
-// Running the server 
-const PORT = 5000;
-app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+/////////////////////////////////////////////////////////////////////////////
