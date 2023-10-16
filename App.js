@@ -4,17 +4,17 @@
 // const http = require("http");
 const express = require("express");
 const app = express();
-// app.get("/",(req,res)=>{
-//   res.send("Helllll");
-// });
+app.get("/",(req,res)=>{
+  res.send("Hi from nodemon");
+});
 const books = [
   { id: 1, name: "book1", tittle: "neww", author: "fadwa" },
   { id: 2, name: "book2", tittle: "newwww", author: "fadwwwa" },
   { id: 3, name: "book3", tittle: "newew", author: "fadwaaa" },
 ];
-app.get("/",(req,res)=>{
-  res.json(books);
-});
+// app.get("/",(req,res)=>{
+//   res.json(books);
+// });
 // const server = http.createServer((request, response) => {
 //   if (request.url === "/") {
 //     response.write("<h1>Hello<h1>");
