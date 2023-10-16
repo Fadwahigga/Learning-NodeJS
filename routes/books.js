@@ -2,7 +2,6 @@ const express = require("express");
 const Joi = require("joi");
 const router = express.Router();
 
-
 const books = [
   { id: 1, name: "book1", tittle: "neww", author: "fadwa", price: "203" },
   { id: 2, name: "book2", tittle: "newwww", author: "fadwwwa", price: "200" },
@@ -40,13 +39,7 @@ router.get("/:id", (req, res) => {
 
 // Add new book
 router.post("/", (req, res) => {
-  const schema = Joi.object({
-    name: Joi.string().trim().min(3).max(100).required(),
-    tittle: Joi.string().trim().min(3).max(100).required(),
-    author: Joi.string().trim().min(3).max(100).required(),
-    price: Joi.number().min(0).required(),
-  });
-  const { error } = schema.validate(req.body);
+    const { error } =validateCreateBook(req.body);
   if (error) {
     return res.status(400).json({ message: error.details[0].message });
   }
@@ -61,4 +54,14 @@ router.post("/", (req, res) => {
   books.push(book);
   res.status(201).json(book); //201 created successfully
 });
+
+function validateCreateBook(obj) {
+  const schema = Joi.object({
+    name: Joi.string().trim().min(3).max(100).required(),
+    tittle: Joi.string().trim().min(3).max(100).required(),
+    author: Joi.string().trim().min(3).max(100).required(),
+    price: Joi.number().min(0).required(),
+  });
+  return schema.validate(obj);
+}
 module.exports = router;
