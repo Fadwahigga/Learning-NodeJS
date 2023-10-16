@@ -4,6 +4,7 @@
 // const http = require("http");
 const express = require("express");
 const app = express();
+const Joi = require('joi');
 // Add middlewares
 app.use(express.json());
 const books = [
@@ -31,12 +32,14 @@ app.get("/books/:id", (req, res) => {
 
 // Add new book
 app.post("/books", (req, res) => {
+
   const book = {
     id: books.length + 1,
     name: req.body.name,
     tittle: req.body.tittle,
     author: req.body.author,
   };
+  console.log(book);
   books.push(book);
   res.status(201).json(book); //201 created successfully
 });
