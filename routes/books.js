@@ -70,6 +70,7 @@ router.put("/:id", (req, res) => {
   if (error) {
     return res.status(400).json({ message: error.details[0].message });
   }
+  const book = books.find((b) => b.id === parseInt(req.params.id));
   if (book) {
     res.status(200).json({ menubar: "Book has been updated" });
   } else {
@@ -83,8 +84,9 @@ router.put("/:id", (req, res) => {
  * @access public
  */
 router.delete("/:id", (req, res) => {
+    const book = books.find((b) => b.id === parseInt(req.params.id));
   if (book) {
-    res.status(200).json({ menubar: "Book has been updated" });
+    res.status(200).json({ menubar: "Book has been deleted" });
   } else {
     res.status(404).json({ message: "Book not found" });
   }
