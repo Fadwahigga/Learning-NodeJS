@@ -11,37 +11,39 @@ const books = [
   { id: 2, name: "book2", tittle: "newwww", author: "fadwwwa" },
   { id: 3, name: "book3", tittle: "newew", author: "fadwaaa" },
 ];
-app.get("/",(req,res)=>{
+app.get("/", (req, res) => {
   res.send("Hi from nodemon");
 });
 // get all books
-app.get("/books",(req,res)=>{
+app.get("/books", (req, res) => {
   res.json(books);
 });
 
 //get book by id
-app.get("/books/:id",(req,res)=>{
-  const book = books.find(b => b.id === parseInt(req.params.id));
-  if(book){
+app.get("/books/:id", (req, res) => {
+  const book = books.find((b) => b.id === parseInt(req.params.id));
+  if (book) {
     res.status(200).json(book);
-  } else{
-    res.status(404).json({message:"Book not found"});
+  } else {
+    res.status(404).json({ message: "Book not found" });
   }
 });
 
 // Add new book
-app.post("/books",(req,res)=>{
-  const book ={ id: books.length+1, name: req.body.name, tittle: req.body.tittle, author: req.body.author };
+app.post("/books", (req, res) => {
+  const book = {
+    id: books.length + 1,
+    name: req.body.name,
+    tittle: req.body.tittle,
+    author: req.body.author,
+  };
   books.push(book);
   res.status(201).json(book); //201 created successfully
-})
+});
 
-
-// Running the server 
+// Running the server
 const PORT = 5000;
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
-
-
 
 //////////////////////////////////////////////////////////////////////////////
 // const server = http.createServer((request, response) => {
