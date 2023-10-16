@@ -71,7 +71,7 @@ router.put("/:id", (req, res) => {
     return res.status(400).json({ message: error.details[0].message });
   }
   if (book) {
-    res.status(200).json({menubar: "Book has been updated"});
+    res.status(200).json({ menubar: "Book has been updated" });
   } else {
     res.status(404).json({ message: "Book not found" });
   }
@@ -83,12 +83,12 @@ router.put("/:id", (req, res) => {
  * @access public
  */
 router.delete("/:id", (req, res) => {
-    if (book) {
-      res.status(200).json({menubar: "Book has been updated"});
-    } else {
-      res.status(404).json({ message: "Book not found" });
-    }
-  });
+  if (book) {
+    res.status(200).json({ menubar: "Book has been updated" });
+  } else {
+    res.status(404).json({ message: "Book not found" });
+  }
+});
 
 // Validate Add Book
 function validateCreateBook(obj) {
