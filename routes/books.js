@@ -23,7 +23,12 @@ router.get("/", (req, res) => {
   res.json(books);
 });
 
-//get book by id
+/**
+ * @des Get Book By Id
+ * @route /books
+ * @method Get
+ * @access public
+ */
 router.get("/:id", (req, res) => {
   const book = books.find((b) => b.id === parseInt(req.params.id));
   if (book) {
