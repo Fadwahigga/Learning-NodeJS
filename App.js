@@ -4,7 +4,8 @@
 // const http = require("http");
 const express = require("express");
 const app = express();
-
+// Add middlewares
+app.use(express.json());
 const books = [
   { id: 1, name: "book1", tittle: "neww", author: "fadwa" },
   { id: 2, name: "book2", tittle: "newwww", author: "fadwwwa" },
