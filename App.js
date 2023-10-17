@@ -1,7 +1,12 @@
 const express = require("express");
 const booksPath = require("./routes/books");
 const authorsPath = require("./routes/authors");
-
+const mongoose = require("mongoos");
+// Conection to database
+mongoose.connect("mongodb://localhost:BookStoreDB"),
+  then(() => console.log("conected to database")).catch((error) =>
+    console.log("faild to conected to database",error)
+  );
 // inti app
 const app = express();
 
@@ -11,7 +16,6 @@ app.use(express.json());
 // Routes
 app.use("/books", booksPath);
 app.use("/authors", authorsPath);
-
 
 // Running the server
 const PORT = 5000;
