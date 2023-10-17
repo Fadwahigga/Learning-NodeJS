@@ -1,12 +1,13 @@
 const express = require("express");
 const booksPath = require("./routes/books");
 const authorsPath = require("./routes/authors");
-const mongoose = require("mongoos");
+const mongoose = require("mongoose");
 // Conection to database
-mongoose.connect("mongodb://localhost:BookStoreDB"),
-  then(() => console.log("conected to database")).catch((error) =>
-    console.log("faild to conected to database",error)
-  );
+mongoose
+  .connect("mongodb://localhost/BookStoreDB", { useNewUrlParser: true })
+  .then(() => console.log("Connected to the database"))
+  .catch((error) => console.log("Failed to connect to the database", error));
+
 // inti app
 const app = express();
 
