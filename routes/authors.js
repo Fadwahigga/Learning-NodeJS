@@ -32,10 +32,14 @@ const authors = [
  * @access public
  */
 router.get("/", async(req, res) => {
-  const authorList = await Author.find()
-    .sort({ firstName: 1 })
-    .select("firstName lastName");
+try {
+  const authorList = await Author.find().sort({ firstName: 1 })
+  .select("firstName lastName -_id");
   res.status(200).json(authorList);
+} catch (error) {
+  console.log(error);
+  res.status(500).json({ message: "Something want wrong" });
+}
 });
 /**
  * @des Get author By Id
