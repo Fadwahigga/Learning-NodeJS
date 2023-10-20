@@ -32,7 +32,9 @@ const authors = [
  * @access public
  */
 router.get("/", async(req, res) => {
-  const authorList = await Author.find().sort({ firstName: 1 });
+  const authorList = await Author.find()
+    .sort({ firstName: 1 })
+    .select("firstName lastName");
   res.status(200).json(authorList);
 });
 /**
