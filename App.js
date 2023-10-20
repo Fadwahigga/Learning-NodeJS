@@ -4,7 +4,7 @@ const authorsPath = require("./routes/authors");
 const mongoose = require("mongoose");
 // Conection to database
 mongoose
-  .connect("mongodb://localhost/BookStoreDB", { useNewUrlParser: true })
+  .connect("mongodb://localhost:27017/BookStoreDB", { useNewUrlParser: true })
   .then(() => console.log("Connected to the database"))
   .catch((error) => console.log("Failed to connect to the database", error));
 

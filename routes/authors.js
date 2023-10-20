@@ -31,8 +31,9 @@ const authors = [
  * @method Get
  * @access public
  */
-router.get("/", (req, res) => {
-  res.status(200).json(authors);
+router.get("/", async(req, res) => {
+  const authorList = await Author.find();
+  res.status(200).json(authorList);
 });
 /**
  * @des Get author By Id
