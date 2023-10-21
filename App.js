@@ -1,6 +1,7 @@
 const express = require("express");
 const booksPath = require("./routes/books");
 const authorsPath = require("./routes/authors");
+const authPath = require("./routes/auth");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const { errorHandler, notFound } = require("./middlewares/errors");
@@ -28,6 +29,7 @@ app.use(errorHandler);
 // Routes
 app.use("/books", booksPath);
 app.use("/authors", authorsPath);
+app.use("/Signup", authPath);
 
 // Running the server
 const PORT = process.env.PORT;

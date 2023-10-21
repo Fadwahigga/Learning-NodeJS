@@ -28,8 +28,11 @@ router.post("/Signup", async (req, res) => {
       password: req.body.password,
       isAdmine: req.body.isAdmine,
     });
-      const result = user.save();
-      res.status(200).json(result);
-  } catch (error) {console.log(error);
-  res.status(500).json({ message: "Something want wrong" });}
+    const result = user.save();
+    res.status(200).json(result);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Something want wrong" });
+  }
 });
+module.exports = router;
