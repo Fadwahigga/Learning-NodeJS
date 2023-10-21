@@ -6,15 +6,6 @@ const {
   validateUpdateBook,
 } = require("../models/Books");
 
-const books = [
-  { id: 1, name: "book1", tittle: "neww", author: "fadwa", price: "203" },
-  { id: 2, name: "book2", tittle: "newwww", author: "fadwwwa", price: "200" },
-  { id: 3, name: "book3", tittle: "newew", author: "fadwaaa", price: "20" },
-];
-// router.get("/", (req, res) => {
-//   res.send("Hi from nodemon");
-// });
-
 /**
  * @des Get All Books
  * @route /books
@@ -22,8 +13,16 @@ const books = [
  * @access public
  */
 
-router.get("/", (req, res) => {
-  res.status(200).json(books);
+router.get("/", async (req, res) => {
+  try {
+    const bookList = await Book.find();
+    // .sort({ firstName: 1 })
+    // .select("firstName lastName -_id");
+    res.status(200).json(bookList);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Something went wrong" });
+  }
 });
 
 /**
