@@ -3,10 +3,13 @@ const booksPath = require("./routes/books");
 const authorsPath = require("./routes/authors");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const { errorHandler, notFound } = require("./middlewares/errors");
 dotenv.config();
 // Check if the environment variable is loaded
 if (!process.env.MONGO_URI) {
-  console.error("MongoDB URI is missing in your .env file or environment variables.");
+  console.error(
+    "MongoDB URI is missing in your .env file or environment variables."
+  );
   process.exit(1);
 }
 // Conection to database
@@ -20,11 +23,8 @@ const app = express();
 
 // // Add middlewares
 app.use(express.json());
-
-app.use((err, req, res, next) => {
-  const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
-  res.Status(statusCode).json({ message: err.message });
-})
+app.use(notFound);
+app.use(errorHandler);
 // Routes
 app.use("/books", booksPath);
 app.use("/authors", authorsPath);
