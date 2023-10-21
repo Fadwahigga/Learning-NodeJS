@@ -5,29 +5,7 @@ const {
   ValidateAddAuthor,
   ValidateUpdatAuthor,
 } = require("../models/Authors");
-const authors = [
-  {
-    id: 1,
-    firstName: "fadwa",
-    lastName: "ali",
-    nationality: "sudan",
-    image: "default.png",
-  },
-  {
-    id: 2,
-    first_name: "fadwa",
-    last_name: "ali",
-    nationality: "sudan",
-    image: "default.png",
-  },
-  {
-    id: 3,
-    first_name: "fadwa",
-    last_name: "ali",
-    nationality: "sudan",
-    image: "default.png",
-  },
-];
+
 /**
  * @des Get All authors
  * @route /authors
@@ -131,10 +109,9 @@ router.put("/:id", async (req, res) => {
  * @access public
  */
 router.delete("/:id", async (req, res) => {
-
   try {
+    const author = Author.findById(req.params.id);
     if (author) {
-        const author = Author.findById(req.params.id);
       await Author.findByIdAndDelete(req.params.id);
       res.status(200).json({ menubar: "Author has been deleted" });
     } else {
