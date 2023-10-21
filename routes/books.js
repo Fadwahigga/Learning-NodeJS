@@ -1,6 +1,10 @@
 const express = require("express");
-const Joi = require("joi");
 const router = express.Router();
+const {
+  Book,
+  ValidateAddBook,
+  validateUpdateBook,
+} = require("../models/Books");
 
 const books = [
   { id: 1, name: "book1", tittle: "neww", author: "fadwa", price: "203" },
@@ -19,7 +23,7 @@ const books = [
  */
 
 router.get("/", (req, res) => {
-    res.status(200).json(books);
+  res.status(200).json(books);
 });
 
 /**
@@ -84,13 +88,12 @@ router.put("/:id", (req, res) => {
  * @access public
  */
 router.delete("/:id", (req, res) => {
-    const book = books.find((b) => b.id === parseInt(req.params.id));
+  const book = books.find((b) => b.id === parseInt(req.params.id));
   if (book) {
     res.status(200).json({ menubar: "Book has been deleted" });
   } else {
     res.status(404).json({ message: "Book not found" });
   }
 });
-
 
 module.exports = router;
