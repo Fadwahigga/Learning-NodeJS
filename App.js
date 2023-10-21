@@ -21,6 +21,10 @@ const app = express();
 // // Add middlewares
 app.use(express.json());
 
+app.use((err, req, res, next) => {
+  const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
+  res.Status(statusCode).json({ message: err.message });
+})
 // Routes
 app.use("/books", booksPath);
 app.use("/authors", authorsPath);
