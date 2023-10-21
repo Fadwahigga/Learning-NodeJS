@@ -1,6 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const { Author } = require("../models/Authors");
+const {
+  Author,
+  ValidateAddAuthor,
+  ValidateUpdatAuthor,
+} = require("../models/Authors");
 const authors = [
   {
     id: 1,
@@ -126,14 +130,20 @@ router.put("/:id", async (req, res) => {
  * @method Delete
  * @access public
  */
-router.delete("/:id", (req, res) => {
-  const author = authors.find((b) => b.id === parseInt(req.params.id));
-  if (author) {
-    res.status(200).json({ menubar: "Author has been deleted" });
-  } else {
-    res.status(404).json({ message: "Author not found" });
+router.delete("/:id", async (req, res) => {
+
+  try {
+    if (author) {
+        const author = Author.findById(req.params.id);
+      await Author.findByIdAndDelete(req.params.id);
+      res.status(200).json({ menubar: "Author has been deleted" });
+    } else {
+      res.status(404).json({ message: "Author not found" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Something want wrong" });
   }
 });
-
 
 module.exports = router;

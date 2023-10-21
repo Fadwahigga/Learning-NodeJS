@@ -36,7 +36,7 @@ function ValidateAddAuthor(obj) {
     firstName: Joi.string().trim().min(3).max(100).required(),
     lastName: Joi.string().trim().min(3).max(100).required(),
     nationality: Joi.string().trim().min(3).max(100).required(),
-    image: Joi.string().required(),
+    image: Joi.string(),
   });
   return schema.validate(obj);
 }
@@ -53,4 +53,6 @@ function ValidateUpdatAuthor(obj) {
 const Author = mongoose.model("Author", AuthorSchema);
 module.exports = {
   Author,
+  ValidateAddAuthor,
+  ValidateUpdatAuthor,
 };
