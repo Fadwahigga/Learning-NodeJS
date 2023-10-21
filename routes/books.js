@@ -92,25 +92,5 @@ router.delete("/:id", (req, res) => {
   }
 });
 
-// Validate Add Book
-function validateCreateBook(obj) {
-  const schema = Joi.object({
-    name: Joi.string().trim().min(3).max(100).required(),
-    tittle: Joi.string().trim().min(3).max(100).required(),
-    author: Joi.string().trim().min(3).max(100).required(),
-    price: Joi.number().min(0).required(),
-  });
-  return schema.validate(obj);
-}
 
-// Validate Update Book
-function validateUpdateBook(obj) {
-  const schema = Joi.object({
-    name: Joi.string().trim().min(3).max(100),
-    tittle: Joi.string().trim().min(3).max(100),
-    author: Joi.string().trim().min(3).max(100),
-    price: Joi.number().min(0),
-  });
-  return schema.validate(obj);
-}
 module.exports = router;
