@@ -15,7 +15,9 @@ const {
 
 router.get("/", async (req, res) => {
   try {
-    const bookList = await Book.find().populate("author");
+    const bookList = await Book.find().populate("author", [
+      "firstName",
+    ]);
     // .sort({ firstName: 1 })
     // .select("firstName lastName -_id");
     res.status(200).json(bookList);
@@ -33,7 +35,7 @@ router.get("/", async (req, res) => {
  */
 router.get("/:id", async (req, res) => {
   try {
-    const book = await Book.findById(req.params.id);
+    const book = await Book.findById(req.params.id).populate("author");
     if (book) {
       res.status(200).json(book);
     } else {
