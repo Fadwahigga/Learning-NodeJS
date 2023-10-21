@@ -1,5 +1,4 @@
 const express = require("express");
-const Joi = require("joi");
 const router = express.Router();
 const { Author } = require("../models/Authors");
 const authors = [
@@ -31,15 +30,16 @@ const authors = [
  * @method Get
  * @access public
  */
-router.get("/", async(req, res) => {
-try {
-  const authorList = await Author.find().sort({ firstName: 1 })
-  .select("firstName lastName -_id");
-  res.status(200).json(authorList);
-} catch (error) {
-  console.log(error);
-  res.status(500).json({ message: "Something want wrong" });
-}
+router.get("/", async (req, res) => {
+  try {
+    const authorList = await Author.find();
+    // .sort({ firstName: 1 })
+    // .select("firstName lastName -_id");
+    res.status(200).json(authorList);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Something went wrong" });
+  }
 });
 /**
  * @des Get author By Id
@@ -47,12 +47,17 @@ try {
  * @method Get
  * @access public
  */
-router.get("/:id", (req, res) => {
-  const author = authors.find((a) => a.id === parseInt(req.params.id));
-  if (author) {
-    res.status(200).json(author);
-  } else {
-    res.status(404).json({ message: "Author not found" });
+router.get("/:id", async (req, res) => {
+  try {
+    const author = await Author.findById(req.params.id);
+    if (author) {
+      res.status(200).json(author);
+    } else {
+      res.status(404).json({ message: "Author not found" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Something went wrong" });
   }
 });
 /**
@@ -89,17 +94,30 @@ router.post("/", async (req, res) => {
  * @method PUT
  * @access public
  */
-router.put("/:id", (req, res) => {
+router.put("/:id", async (req, res) => {
   const { error } = ValidateUpdatAuthor(req.body);
   if (error) {
     return res.status(400).json({ message: error.details[0].message });
   }
-  const author = authors.find((b) => b.id === parseInt(req.params.id));
-  if (author) {
-    res.status(200).json({ menubar: "Author has been updated" });
-  } else {
-    res.status(404).json({ message: "Author not found" });
-  }
+  const author = await Author.findByIdAndUpdate(
+    req.params.id,
+    {
+      $set: {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        nationality: req.body.nationality,
+        image: req.body.image,
+      },
+    },
+    { new: true }
+  );
+  // const author = authors.find((b) => b.id === parseInt(req.params.id));
+  // if (author) {
+  //   res.status(200).json({ menubar: "Author has been updated" });
+  // } else {
+  //   res.status(404).json({ message: "Author not found" });
+  // }
+  res.status(200).json(author);
 });
 
 /**
@@ -117,24 +135,5 @@ router.delete("/:id", (req, res) => {
   }
 });
 
-// Validate Add Author
-function ValidateAddAuthor(obj) {
-  const schema = Joi.object({
-    firstName: Joi.string().trim().min(3).max(100).required(),
-    lastName: Joi.string().trim().min(3).max(100).required(),
-    nationality: Joi.string().trim().min(3).max(100).required(),
-    image: Joi.string().required(),
-  });
-  return schema.validate(obj);
-}
-// Validate Update Author
-function ValidateUpdatAuthor(obj) {
-  const schema = Joi.object({
-    firstName: Joi.string().trim().min(3).max(100),
-    lastName: Joi.string().trim().min(3).max(100),
-    nationality: Joi.string().trim().min(3).max(100),
-    image: Joi.string(),
-  });
-  return schema.validate(obj);
-}
+
 module.exports = router;
